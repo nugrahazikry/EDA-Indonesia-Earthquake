@@ -8,3 +8,9 @@ Earthquakes are known as one of the most destructive natural disasters, capable 
 The Indonesian archipelago is located on the tectonic zone where the Pacific, Eurasian, and Indo-Australian plates collide. Because Indonesia is at the center of a complex tectonic zone, earthquakes occur almost every day more than three times. According to data from the USGS (United States Geological Survey) website, 90 % of earthquakes, including the largest, occurred along the Ring of Fire region. Surprisingly, Indonesia is located above the ring of fire and the complex tectonic zone.
 
 The EDA and data visualization can be used to visualize the number of earthquake occurrences. In this article, I will use the R programming language to perform EDA and visualize data to obtain specific information. The dataset was gathered from USGS website, which collects data on earthquakes that occur around the world. We will be using earthquake data from the years 2000 to 2020.
+
+## EDA and Visualization
+The majority of the data in the dataset comes from earthquakes recorded in ASEAN countries. We must specify the coordinates of the Indonesian territory so that the data can only be filled with earthquakes occurred in the Indonesian region.
+https://github.com/nugrahazikry/EDA-Earthquake/blob/bb9af4ca963d474484c21571622363c10ac6693d/Data%20Visualization/Fig.%201%20Earthquake%20distribution%20based%20on%20magnitude%20class.png
+
+[test](Data Visualization/Fig. 1 Earthquake distribution based on magnitude class.png)
