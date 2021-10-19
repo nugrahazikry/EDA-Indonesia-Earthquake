@@ -31,12 +31,16 @@ This analysis only includes earthquakes with magnitudes greater than 2 on the Ri
 
 <p align="center">
           Fig. 1 Earthquake distribution based on magnitude class
- <p>
+</p>
 
 According to the bar chart of Fig 1. above, there are over 4245 minor earthquakes, 38092 light earthquakes, and 4163 moderate earthquakes occurred on Indonesian territory between 2000 and 2020. The most concerning thing is that there are 319 strong earthquake, 42 major earthquake, and 4 great earthquake. The magnitude classes above strong will almost certainly cause significant damage to a nearby town. To get more specific data about when this earthquake occurred, we need to collect more information about earthquakes that occur every year.
 
 ![Fig. 2](https://github.com/nugrahazikry/EDA-Earthquake/blob/46ca4c2e2e0e733c8c99da61c956eb9de39b3d3c/Data%20Visualization/Fig.%202%20Earthquake%20distribution%20based%20on%20sequence%20of%20year.png)
 
+<p align="center">
+          Fig. 2 Earthquake distribution based on sequence of year
+</p>
+           
 The bar chart of Fig 2. above clearly shows that there are more than 1000 earthquakes occured in Indonesia every year. There was also a significant increase in the number of earthquakes in 2005, with over 5110 earthquakes occurring on that year alone. The 2005 earthquake doubled the number of earthquakes recorded from previous year in 2004.
 
 This is interesting.
@@ -44,6 +48,10 @@ This is interesting.
 One of the hypotheses for why such a phenomenon could occur is that there was an increase in the number of minor earthquakes preceding the aftershock of the major earthquake. We will use a scatter plot to gather more information about the earthquake distribution based on the magnitude scale and time period.
 
 ![Fig. 3](https://github.com/nugrahazikry/EDA-Earthquake/blob/46ca4c2e2e0e733c8c99da61c956eb9de39b3d3c/Data%20Visualization/Fig.%203%20Scatter%20plot%20of%20earthquake%20distribution%20based%20on%20magnitude%20scale%20from%202000-2020.png)
+
+<p align="center">
+          Fig. 3 Scatter plot of earthquake distribution based on magnitude scale from 2000-2020
+</p>
 
 The scatter plot from Fig 3. above shows that there were three major earthquakes between 2004 and 2007. We will mainly focus our attention to this phenomenon.
 
@@ -57,9 +65,17 @@ We believe that this massive earthquake is the primary cause of the great increa
 
 ![Fig. 4](https://github.com/nugrahazikry/EDA-Earthquake/blob/46ca4c2e2e0e733c8c99da61c956eb9de39b3d3c/Data%20Visualization/Fig.%204%20Earthquake%20distribution%20based%20on%20magnitude%20classes%20in%20time%20period%20of%202004-2007.png)
 
+<p align="center">
+          Fig. 4 Earthquake distribution based on magnitude classes in time period of 2004-2007
+</p>
+
 From the bar chart of Fig 4. above, The great earthquake preceding the December 2004 earthquake and the second great earthquake in March 2005 caused a significant increase in light earthquakes in 2005. To get more information about the distribution of earthquakes by month, we need to look at the number of earthquakes that occurred in each sequence of months from 2004 to 2007.
 
 ![Fig. 5](https://github.com/nugrahazikry/EDA-Earthquake/blob/46ca4c2e2e0e733c8c99da61c956eb9de39b3d3c/Data%20Visualization/Fig.%205%20Earthquake%20distribution%20based%20on%20magnitude%20classes%20each%20month%20in%202004-2007.png)
+
+<p align="center">
+          Fig. 5 Earthquake distribution based on magnitude classes each month in 2004-2007
+</p>
 
 We can learn more about the increasing and decreasing number of earthquakes in each month from 2004 to 2007 by looking at the bar chart in Fig. 5. Between December 2004 and April 2005, there were a large number of earthquakes. The earthquakes occurred prior to the great earthquake of 9.1 magnitude in 2004, which resulted in the lesser earthquake on the following month.
 
@@ -71,6 +87,10 @@ In relation to the previous number of earthquakes each month every year, we will
 
 ![Fig. 6](https://github.com/nugrahazikry/EDA-Earthquake/blob/46ca4c2e2e0e733c8c99da61c956eb9de39b3d3c/Data%20Visualization/Fig.%206%20Scatter%20plot%20of%20earthquake%20distribution%20based%20on%20magnitude%20and%20depth%20every%20year.png)
 
+<p align="center">
+          Fig. 6 Scatter plot of earthquake distribution based on magnitude and depth every year
+</p>
+
 The relationship between mag and depth is inverse, as evidenced by the majority of the scatter plot above from Fig. 6. It means that as the magnitude increases, the depth decreases. The large magnitude earthquake is most likely to have occurred at a shallow depth. This is correct because the previous great earthquake happened at a depth of less than 50 kilometers beneath the earth's surface.
 
 ## Conclusion
@@ -80,13 +100,14 @@ The relationship between mag and depth is inverse, as evidenced by the majority 
 4.	The greater magnitude Richter scale of earthquake occurred at the shallower depth.
 
 ## Reference
-[1]	Adagunodo, A., et all. (2017) Evaluation of 0 < M < 8 earthquake data sets in African–Asian region during 1966–2015. Data in Brief
-[2]	Gongqian, Xu., Hanghang, He., Ying ,Tao., Yang, Wang. (2005) Earthquake. Roskilde Universitetscenter's Digitale Arkiv.
-[3]	Pribadi, K., et all.  (2021) Learning from past earthquake disasters: The need for knowledge management system to enhance infrastructure resilience in Indonesia. International Journal of Disaster Risk Reduction
-[4]	Senduk, R., Indwiarti, Nhita, F. (2019) Clustering of Earthquake Prone Areas in Indonesia Using K-Medoids Algorithm. Indonesia Journal on Computing.
-[5]	https://earthquake.usgs.gov/earthquakes/search/
-[6]	https://www.gns.cri.nz/Home/Learning/Science-Topics/Earthquakes/Monitoring-Earthquakes/Other-earthquake-questions/What-is-the-Richter-Magnitude-Scale
-[7]	https://www.usgs.gov/centers/pcmsc/science/tsunami-generation-2004-m91-sumatra-andaman-earthquake?qt-science_center_objects=0#qt-science_center_objects
-[8]	https://reliefweb.int/report/indonesia/indonesia-28-march-earthquake-situation-report-9
-[9]	https://reliefweb.int/map/indonesia/m85-and-79-southern-sumatra-earthquakes-12-september-2007-and-m70-13-september-2007
-
+<ul>
+          <li>[1]	Adagunodo, A., et all. (2017) Evaluation of 0 < M < 8 earthquake data sets in African–Asian region during 1966–2015. Data in Brief.</li>
+          <li>[2]	Gongqian, Xu., Hanghang, He., Ying ,Tao., Yang, Wang. (2005) Earthquake. Roskilde Universitetscenter's Digitale Arkiv.</li>
+          <li>[3]	Pribadi, K., et all.  (2021) Learning from past earthquake disasters: The need for knowledge management system to enhance infrastructure resilience in Indonesia. International Journal of Disaster Risk Reduction.</li>
+          <li>[4]	Senduk, R., Indwiarti, Nhita, F. (2019) Clustering of Earthquake Prone Areas in Indonesia Using K-Medoids Algorithm. Indonesia Journal on Computing.</li>
+          <li>[5]	https://earthquake.usgs.gov/earthquakes/search/</li>
+          <li>[6]	https://www.gns.cri.nz/Home/Learning/Science-Topics/Earthquakes/Monitoring-Earthquakes/Other-earthquake-questions/What-is-the-Richter-Magnitude-Scale</li>
+          <li>[7]	https://www.usgs.gov/centers/pcmsc/science/tsunami-generation-2004-m91-sumatra-andaman-earthquake?qt-science_center_objects=0#qt-science_center_objects</li>
+          <li>[8]	https://reliefweb.int/report/indonesia/indonesia-28-march-earthquake-situation-report-9</li>
+          <li>[9]	https://reliefweb.int/map/indonesia/m85-and-79-southern-sumatra-earthquakes-12-september-2007-and-m70-13-september-2007</li>
+</ul>
