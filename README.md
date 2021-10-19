@@ -12,7 +12,4 @@ The EDA and data visualization can be used to visualize the number of earthquake
 ## EDA and Visualization
 The majority of the data in the dataset comes from earthquakes recorded in ASEAN countries. We must specify the coordinates of the Indonesian territory so that the data can only be filled with earthquakes occurred in the Indonesian region.
 
-[test1](https://github.com/nugrahazikry/EDA-Earthquake/blob/bb9af4ca963d474484c21571622363c10ac6693d/Data%20Visualization/Fig.%201%20Earthquake%20distribution%20based%20on%20magnitude%20class.png)
-
-[test2](https://github.com/nugrahazikry/EDA-Earthquake/Data Visualization/Fig. 1 Earthquake distribution based on magnitude class.png)
-
+![test1](https://github.com/nugrahazikry/EDA-Earthquake/blob/bb9af4ca963d474484c21571622363c10ac6693d/Data%20Visualization/Fig.%201%20Earthquake%20distribution%20based%20on%20magnitude%20class.png)
