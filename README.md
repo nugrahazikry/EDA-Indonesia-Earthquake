@@ -28,6 +28,7 @@ This analysis only includes earthquakes with magnitudes greater than 2 on the Ri
 
 
 ![Fig. 1](https://github.com/nugrahazikry/EDA-Earthquake/blob/bb9af4ca963d474484c21571622363c10ac6693d/Data%20Visualization/Fig.%201%20Earthquake%20distribution%20based%20on%20magnitude%20class.png)
+<p align="center>Fig. 1 Earthquake distribution based on magnitude class<p>
 
 According to the bar chart of Fig 1. above, there are over 4245 minor earthquakes, 38092 light earthquakes, and 4163 moderate earthquakes occurred on Indonesian territory between 2000 and 2020. The most concerning thing is that there are 319 strong earthquake, 42 major earthquake, and 4 great earthquake. The magnitude classes above strong will almost certainly cause significant damage to a nearby town. To get more specific data about when this earthquake occurred, we need to collect more information about earthquakes that occur every year.
 
