@@ -1,0 +1,239 @@
+---
+title: EDA and Visualization of Earthquake Occurrence in Indonesia over the last 20 years using R
+author: "Zikry Adjie Nugraha"
+date: "9/25/2021"
+output:
+  word_document: default
+  html_document: default
+---
+
+The EDA and data visualization can be used to visualize the number of earthquake occurrences. In this article, I will use the R programming language to perform EDA and visualize data to obtain specific information. The dataset was gathered from (https://earthquake.usgs.gov/earthquakes/search/), which collects data on earthquakes that occur around the world. We will use earthquake data from the years 2000 to 2020.
+
+Before we begin the coding section, we must import specific library that we will be using later on.
+
+```{r}
+#Importing specific library
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(ggplot2)
+library(plotly)
+```
+
+The majority of the data in the dataset comes from earthquakes recorded in ASEAN countries. We must specify the coordinates of the Indonesian territory so that the data can only be filled with earthquakes occurred in the Indonesian region.
+
+```{r}
+#Load the dataset
+df_eq1 <- read.csv("~/Rstudio/Projects/EDA Earthquake/Dataset/Raw/EQ 2000-2004.csv")
+df_eq2 <- read.csv("~/Rstudio/Projects/EDA Earthquake/Dataset/Raw/EQ 2005-2010.csv")
+df_eq3 <- read.csv("~/Rstudio/Projects/EDA Earthquake/Dataset/Raw/EQ 2011-2015.csv")
+df_eq4 <- read.csv("~/Rstudio/Projects/EDA Earthquake/Dataset/Raw/EQ 2016-2020.csv")
+```
+
+```{r}
+#Combine the dataset
+df_eq <- rbind(df_eq4,df_eq3,df_eq2,df_eq1)
+df_eq
+```
+
+```{r}
+str(df_eq)
+```
+
+First, we need to specified the longitude and latitude location so that the data we're looking for are in the Indonesia territory
+
+```{r}
+#Specified earthquake's coordinate that happened in Indonesia territory
+eq_INA = df_eq %>% 
+  filter(longitude>=93 & longitude<=141.25,latitude>=-15 & latitude<=9)
+eq_INA
+```
+
+The time column is not in the right format. we need to change the time column into the proper format.
+
+```{r}
+#changing the time column format
+eq_INA = eq_INA %>% 
+    separate(time,into = c("year","month","day"),sep = "-") %>% 
+    separate(day,into = c("day","time"),sep = "T") %>%
+    select(-c("time")) %>% 
+    arrange(desc(year))
+
+eq_INA$year =as.integer(eq_INA$year)
+eq_INA$month =as.integer(eq_INA$month)
+eq_INA$day =as.integer(eq_INA$day)
+eq_INA$date = as.Date(with(eq_INA,paste(year,month,day,sep="-")), "%Y-%m-%d")
+
+eq_INA 
+```
+
+We need to check whether our data has missing value or not.
+
+```{r}
+#Checking missing value
+eq_INA %>% is.na() %>% colSums() %>% sort(decreasing = TRUE)
+```
+
+Since the column of year, month, day, latitude, longitude, depth, mag, and date has zero value meaning that there are no missing value on the particular column we are going to use.
+
+# Earthquake classification based on magnitude
+After we specify the data, we must classify the data of earthquakes based on their magnitude.
+
+Based on its magnitude richter scale, the earthquake is classified into eight categories[6].
+1. Magnitude less than 2: Micro Earthquake
+2. Magnitude 2 to 3.9: Minor Earthquake
+3. Magntiude 4 to 4.9: Light Earthquake
+4. Magnitude 5 to 5.9: Moderate Earthquake
+5. Magnitude 6 to 6.9: Strong Earthquake
+6. Magntiude 7 to 7.9: Major Earthquake
+7. Magntiude 8 to 9.9: Great Earthquake
+8. Magntiude more than 10: Epic Earthquake
+
+This analysis only includes earthquakes with magnitudes greater than 2 on the Richter scale.
+
+
+```{r}
+#Classifying earthquake based on magnitude richter scale
+eq_INA = eq_INA %>% 
+  mutate(mag_class = factor(ifelse(mag>=2 & mag<=4,"minor",ifelse(mag>=4 & mag<=5,"light",ifelse(mag>=5 & mag<=6,"moderate",ifelse(mag>=6 & mag<=7,"strong",ifelse(mag>=7 & mag<=8,"major","great")))))))
+
+eq_INA
+write.csv(eq_INA, "~/Rstudio/Projects/EDA Earthquake/Dataset/Clean/EQ Indonesia 2000-2020.csv")
+```
+
+Now we get the proper data frame, we started with the idea to count the number of earthquake based on its level of magnitude and year.
+
+```{r}
+eq_INA %>% 
+  group_by(mag_class) %>% 
+  summarise(number_of_earthquakes = n()) %>%
+  arrange(number_of_earthquakes)
+```
+
+```{r}
+eq_INA %>% 
+  group_by(mag_class) %>% 
+  summarise(number_of_earthquakes = n()) %>%
+  ggplot(aes(x = mag_class, y = number_of_earthquakes)) +
+  geom_bar(stat = 'identity', fill = "red") + geom_label(aes(label = number_of_earthquakes)) + labs(title = 'Earthquake distribution based on magnitude classes',
+       subtitle = 'Huge increased on the number of earthquake occurred within the smaller magnitude classes.',
+       caption = "The dataset contains list of recorded earthquake in Indonesia from year 2000-2020.",
+       x = 'magnitude classes',
+       y = 'Number of earthquakes')
+
+ggsave(file="Earthquake distribution based on magnitude class.png", width=10, height=5)
+```
+
+According to the bar chart above, there are over 4245 minor earthquakes, 38092 light earthquakes, and 4163 moderate earthquakes occurred on Indonesian territory between 2000 and 2020. The most concerning thing is that there are 319 strong earthquake, 42 major earthquake, and 4 great earthquake. The magnitude classes above strong will almost certainly cause significant damage to a nearby town. To get more specific data about when this earthquake occurred, we need to collect more information about earthquakes that occur every year.
+
+```{r}
+eq_INA %>% 
+  group_by(year) %>% 
+  summarise(number_of_earthquakes = n()) %>%
+  arrange(desc(year))
+```
+
+```{r}
+eq_INA %>% 
+  group_by(year) %>% 
+  summarise(number_of_earthquakes = n()) %>%
+  ggplot(aes(x = year, y = number_of_earthquakes)) +
+  geom_bar(stat = 'identity', fill ="blue") + geom_label(aes(label = number_of_earthquakes)) + 
+  labs(title = 'Earthquake distribution based on number of earthquakes every year',
+       subtitle = 'Huge number of earthquakes has been spotted within time period of year 2005-2007.',
+       caption = "The dataset contains list of recorded earthquake in Indonesia from year 2000-2020.",
+       x = 'Year',
+       y = 'Number of earthquakes')
+
+ 
+  ggsave(file="Earthquake distribution based on sequence of year.png", width=10, height=5)
+```
+
+The bar chart of Fig 2. above clearly shows that there are more than 1000 earthquakes occured in Indonesia every year. There was also a significant increase in the number of earthquakes in 2005, with over 5110 earthquakes occurring on that year alone. The 2005 earthquake doubled the number of earthquakes recorded from previous year in 2004.
+
+This is interesting.
+
+One of the hypotheses for why such a phenomenon could occur is that there was an increase in the number of minor earthquakes preceding the aftershock of the major earthquake. We will use a scatter plot to gather more information about the earthquake distribution based on the magnitude scale and time period.
+
+
+```{r}
+eq_INA %>%
+  ggplot(aes(x = date, y = mag,)) +
+  geom_point(alpha = 0.3) + labs(title = 'Scatter plot of earthquake distribution based on magnitude scale from 2000-2020',
+       subtitle = 'There has been spotted 4 great earthquake within time period of year 2004, 2005, 2007, and 2012.',
+       caption = "The dataset contains list of recorded earthquake in Indonesia from year 2000-2020.",
+       x = 'Year',
+       y = 'Magnitude scale')
+
+ggsave(file="Scatter plot of earthquake distribution based on magnitude scale from 2000-2020.png", width=10, height=5)
+```
+
+The scatter plot from above shows that there were three major earthquakes between 2004 and 2007. We will mainly focus our attention to this phenomenon.
+
+We believe that this massive earthquake is the primary cause of the great increase in the number of earthquakes. Furthermore, we will focus our investigation to the years 2004 to 2007 where mainly great earthquakes occured.
+
+```{r}
+eq_INA %>% 
+  filter(year==2004 | year==2005 | year==2006 | year==2007) %>%
+  group_by(mag_class, year) %>% 
+  summarise(number_of_earthquakes = n()) %>%
+  ggplot(aes(x = mag_class, y = number_of_earthquakes)) +
+  geom_bar(stat = 'identity', fill ="forest green") +  geom_label(aes(label = number_of_earthquakes)) + facet_wrap(~year,  ncol=1, strip.position = "left") + 
+  labs(title = 'Earthquake distribution based on magnitude classes on time period of 2004-2007',
+       subtitle = 'Huge increased on the number of minor earthquake occured in 2005, doubled the last year.',
+       caption = "The dataset contains list of recorded earthquake in Indonesia from year 2004-2007.",
+       x = 'magnitude classes',
+       y = 'Number of earthquakes')
+
+ggsave(file="Earthquake distribution based on magnitude classes in time period of 2004-2007.png", width=10, height=8)
+```
+
+From the bar chart above, The great earthquake preceding the December 2004 earthquake and the second great earthquake in March 2005 caused a significant increase in light earthquakes in 2005. To get more information about the distribution of earthquakes by month, we need to look at the number of earthquakes that occurred in each sequence of months from 2004 to 2007.
+
+```{r}
+eq_INA %>% 
+  filter(year==2004 | year==2005 | year==2006 | year==2007) %>%
+  group_by(month, year) %>% 
+  summarise(number_of_earthquakes = n()) %>%
+  ggplot(aes(x = month, y = number_of_earthquakes)) +
+  geom_bar(stat = 'identity', fill ="forest green") +  geom_label(aes(label = number_of_earthquakes)) + facet_wrap(~year,  ncol=1, strip.position = "left") + 
+  labs(title = 'Earthquake distribution based on magnitude classes each month in 2004-2007',
+       subtitle = 'Huge increase on the number of earthquakes occured prior to the great earthquake.',
+       caption = "The dataset contains list of recorded earthquake in Indonesia from year 2004-2007.",
+       x = 'Month',
+       y = 'Number of earthquakes')
+
+ggsave(file="Earthquake distribution based on magnitude classes each month in 2004-2007.png", width=10, height=5)
+```
+
+
+We can learn more about the increasing and decreasing number of earthquakes in each month from 2004 to 2007 by looking at the bar chart in Fig. 5. Between December 2004 and April 2005, there were a large number of earthquakes. The earthquakes occurred prior to the great earthquake of 9.1 magnitude in 2004, which resulted in the lesser earthquake on the following month.
+
+There was also an increase in the number of earthquakes prior to the second great earthquake in March 2005. Our previous assumption about the increasing number of minor earthquakes being caused by major earthquakes appears to be correct. According to the earthquake data from December 2004 to April 2005, the great earthquake that occurred a month before caused a significant increase in the number of earthquakes on the following month.
+
+The same phenomenon also happened when the third great earthquake occurred in September 2007. However, the number of earthquakes did not increase as rapidly as it did during the previous great earthquake during this time period.
+
+In relation to the previous number of earthquakes each month every year, we will also exploring the data between magnitude and depth of earthquake. The following scatter plot will show the relation between magnitude and depth regarding the occurred earthquake.
+
+```{r}
+#Relationship between mag and depth
+eq_INA %>%
+  ggplot(aes(x = mag, y = depth)) +
+  geom_point() +
+  geom_smooth(method = 'lm', se = FALSE) +
+  facet_wrap(~year)  + labs(title = 'Scatter plot of earthquake distribution based on magnitude and depth every year',
+       subtitle = 'The blue line indicated that the greater value of magnitude, the smaller value of the depth.',
+       caption = "The dataset contains list of recorded earthquake in Indonesia from year 2000-2020.",
+       x = 'Magnitude',
+       y = 'Depth')
+
+ggsave(file="Scatter plot of earthquake distribution based on magnitude and depth every year.png", width=10, height=5)
+```
+
+The relationship between mag and depth is inverse, as evidenced by the majority of the scatter plot above from Fig. 6. It means that as the magnitude increases, the depth decreases. The large magnitude earthquake is most likely to have occurred at a shallow depth. This is correct because the previous great earthquake happened at a depth of less than 50 kilometers beneath the earth's surface.
+
+Conclusion
+1.	From 2000 to 2020, there were 4245 minor earthquakes, 38092 light earthquakes, and 4163 moderate earthquakes on Indonesian territory. Despite this, the most notable earthquakes are the major and great earthquakes with the major occurring 52 times and the great occurring 4 times.
+2.	Every year, more than 1000 earthquakes with varying magnitudes occur in Indonesia, ranging from minor to great earthquake.
+3.	The large number of earthquakes that occurred in 2005 were caused by aftershocks from the previous year's great earthquake in December 2004 and March 2005. Because of the two great earthquakes, the number of earthquakes in 2005 is increasing doubled from the previous year especially for the lesser earthquakes.
+4.	The greater magnitude Richter scale of earthquake occurred at the shallower depth.
