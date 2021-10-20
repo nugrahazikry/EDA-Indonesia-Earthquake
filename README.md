@@ -102,7 +102,7 @@ The relationship between mag and depth is inverse, as evidenced by the majority 
 ## Reference
 <ul>
           <li>[1]	Adagunodo, A., et all. (2017) Evaluation of 0 < M < 8 earthquake data sets in African–Asian region during 1966–2015. Data in Brief.</li>
-          <li>[2]	Gongqian, Xu., Hanghang, He., Ying ,Tao., Yang, Wang. (2005) Earthquake. Roskilde Universitetscenter's Digitale Arkiv.</li>
+          <li>[2]   S. A. Greenhalgh and R. T. Parham, The Richter earthquake magnitude scale in South Australia (2007), Australian Journal of Earth Science.</li>
           <li>[3]	Pribadi, K., et all.  (2021) Learning from past earthquake disasters: The need for knowledge management system to enhance infrastructure resilience in Indonesia. International Journal of Disaster Risk Reduction.</li>
           <li>[4]	Senduk, R., Indwiarti, Nhita, F. (2019) Clustering of Earthquake Prone Areas in Indonesia Using K-Medoids Algorithm. Indonesia Journal on Computing.</li>
           <li>[5]	https://earthquake.usgs.gov/earthquakes/search/</li>
