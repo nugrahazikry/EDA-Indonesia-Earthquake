@@ -1,5 +1,10 @@
 # EDA and Visualization of Indonesia Earthquake Over the last 20 years
 
+## For more information
+Check out my Towards Data Science Article:
+
+https://towardsdatascience.com/eda-and-visualization-of-earthquake-occurrence-in-indonesia-over-the-last-20-years-using-r-4c76e94e94c2
+
 ## Introduction
 Indonesia is a country with a high possibilities of natural disasters such as volcanic eruptions, forest fires, floods, and, most notably, earthquakes. Every day, I received an earthquake notification from my phone's Meteorological, Climatological, and Geophysical agency application. Not just one, but sometimes two or three notifications appeared in one day, informing me that there has been an earthquake in one of Indonesia's regions. This inspired me to create an EDA (Exploratory Data Analysis) of how many earthquakes occurred in the Indonesia region over the last 20 years.
 
